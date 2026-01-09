@@ -3,7 +3,7 @@ name: Deploy to cPouta
 on:
   push:
     branches:
-      - main  # Suorittaa automaation aina, kun main-haara päivittyy
+      - main
 
 jobs:
   deploy:
@@ -18,6 +18,6 @@ jobs:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.DEPLOY_SSH_KEY }}
-          source: "index.html"  # Mitkä tiedostot kopioidaan
-          target: "/var/www/html/" # Minne ne laitetaan
+          source: "index.html"
+          target: "/var/www/html/"
           strip_components: 0
