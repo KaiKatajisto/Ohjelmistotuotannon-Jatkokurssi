@@ -17,7 +17,7 @@ jobs:
         with:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
           source: "index.html"  # Mitkä tiedostot kopioidaan
           target: "/var/www/html/" # Minne ne laitetaan
           strip_components: 0
