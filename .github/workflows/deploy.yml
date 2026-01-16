@@ -1,4 +1,4 @@
-name: Deploy to cPouta (Manual Style)
+name: Deploy to cPouta
 
 on:
   push:
@@ -9,22 +9,15 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout koodi
+        uses: actions/checkout@v4
 
-      - name: Deploy via SCP
-        env:
-          SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
-          HOST: ${{ secrets.REMOTE_HOST }}
-          USER: ${{ secrets.REMOTE_USER }}
-        run: |
-          # 1. Set up the SSH key securely
-          mkdir -p ~/.ssh
-          echo "$SSH_KEY" > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
-          
-          # 2. Scan the server to prevent "Unknown Host" errors
-          ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
-
-          # 3. Copy files (The critical part!)
-          # We explicitly list both files to ensure the image is sent.
-          scp -i ~/.ssh/deploy_key -r index.html funny_kitten.jpg $USER@$HOST:/var/www/html/
+      - name: Kopioi tiedostot palvelimelle (SCP)
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          source: "index.html,funny_kitten.jpg"
+          target: "/var/www/html/"
+          strip_components: 0
