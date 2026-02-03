@@ -61,9 +61,9 @@ jobs:
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -H 86.50.22.55 >> ~/.ssh/known_hosts
           ssh -i ~/.ssh/deploy_key ubuntu@195.148.20.136 << 'EOF'
-          echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
-          docker pull $DOCKER_USERNAME/demo:latest
+          echo "$DOCKER_TOKEN" | docker login -u "kaimichaelkatajisto" --password-stdin
+          docker pull kaimichaelkatajisto/demo:latest
           docker stop demo || true
           docker rm demo || true
-          docker run -d -p 80:8080 --name demo $DOCKER_USERNAME/demo:latest
+          docker run -d -p 80:8080 --name demo kaimichaelkatajisto/demo:latest
           EOF
