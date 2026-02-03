@@ -8,6 +8,6 @@ public class HelloController {
 
     @GetMapping("/")
     public String index() {
-        return "Hello World from VSC to GitHub to Docker image in csc-server! Woohoo!";
+        return "Hello World from VSC to GitHub to Docker image in csc-server!";
     }
 }
