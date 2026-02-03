@@ -61,6 +61,8 @@ jobs:
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -H 195.148.20.136 >> ~/.ssh/known_hosts
           ssh -i ~/.ssh/deploy_key ubuntu@195.148.20.136 << 'EOF'
+          export DOCKER_USERNAME="${{ secrets.DOCKERHUB_USERNAME }}"
+          export DOCKER_TOKEN="${{ secrets.DOCKERHUB_TOKEN }}"
           echo "$DOCKER_TOKEN" | docker login -u "$DOCKER_USERNAME" --password-stdin
           docker pull $DOCKER_USERNAME/demo:latest
           docker stop demo || true
